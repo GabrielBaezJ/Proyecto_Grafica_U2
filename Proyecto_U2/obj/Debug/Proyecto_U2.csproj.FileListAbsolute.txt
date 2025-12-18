@@ -1,0 +1,32 @@
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\obj\Debug\Proyecto_U2.csproj.AssemblyReference.cache
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\obj\Debug\Proyecto_U2.Properties.Resources.resources
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\obj\Debug\Proyecto_U2.csproj.GenerateResource.cache
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\obj\Debug\Proyecto_U2.csproj.CoreCompileInputs.cache
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\bin\Debug\Proyecto_U2.exe.config
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\bin\Debug\Proyecto_U2.exe
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\bin\Debug\Proyecto_U2.pdb
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\obj\Debug\Proyecto_U2.exe
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\obj\Debug\Proyecto_U2.pdb
+D:\Documents\Universidad_ESPE\Semestre 7\Computación Gráfica\Parcial 2\Proyecto_U2\Proyecto_U2\obj\Debug\Proyecto_U2.exe.config
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\bin\Debug\Proyecto_U2.exe.config
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\bin\Debug\Proyecto_U2.exe
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\bin\Debug\Proyecto_U2.pdb
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.exe.config
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.Properties.Resources.resources
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.csproj.GenerateResource.cache
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.exe
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.pdb
+C:\Users\PC\Desktop\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.Form1.resources
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\bin\Debug\Proyecto_U2.exe.config
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\bin\Debug\Proyecto_U2.exe
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\bin\Debug\Proyecto_U2.pdb
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.csproj.AssemblyReference.cache
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.exe.config
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.Form1.resources
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.Properties.Resources.resources
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.csproj.GenerateResource.cache
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.exe
+C:\Users\Usuario\Documents\GRAFICA\UNIDAD II\PROYECTO\Proyecto_Grafica_U2\Proyecto_U2\obj\Debug\Proyecto_U2.pdb
