@@ -272,46 +272,55 @@ namespace Proyecto_U2
         {
             Cube cube = new Cube($"Cube_{objectCounter++}", 1f);
             cube.Material = new Material(Color3.Red);
-            cube.Transform.Position = GetRandomPosition();
+            cube.Transform.Position = new Vector3(0, 0, 0);
             scene.AddObject(cube);
+            scene.SelectObject(cube);
             RefreshObjectList();
-            // Los objetos se crean sin selección - el usuario debe seleccionarlos
+            UpdateTransformUI();
         }
 
         private void BtnAddSphere_Click(object sender, EventArgs e)
         {
             Sphere sphere = new Sphere($"Sphere_{objectCounter++}", 0.5f, 20, 20);
             sphere.Material = new Material(Color3.Green);
-            sphere.Transform.Position = GetRandomPosition();
+            sphere.Transform.Position = new Vector3(0, 0, 0);
             scene.AddObject(sphere);
+            scene.SelectObject(sphere);
             RefreshObjectList();
+            UpdateTransformUI();
         }
 
         private void BtnAddCylinder_Click(object sender, EventArgs e)
         {
             Cylinder cylinder = new Cylinder($"Cylinder_{objectCounter++}", 0.5f, 1.5f, 20);
             cylinder.Material = new Material(Color3.Blue);
-            cylinder.Transform.Position = GetRandomPosition();
+            cylinder.Transform.Position = new Vector3(0, 0, 0);
             scene.AddObject(cylinder);
+            scene.SelectObject(cylinder);
             RefreshObjectList();
+            UpdateTransformUI();
         }
 
         private void BtnAddCone_Click(object sender, EventArgs e)
         {
             Cone cone = new Cone($"Cone_{objectCounter++}", 0.5f, 1.5f, 20);
             cone.Material = new Material(Color3.Yellow);
-            cone.Transform.Position = GetRandomPosition();
+            cone.Transform.Position = new Vector3(0, 0, 0);
             scene.AddObject(cone);
+            scene.SelectObject(cone);
             RefreshObjectList();
+            UpdateTransformUI();
         }
 
         private void BtnAddPyramid_Click(object sender, EventArgs e)
         {
             Pyramid pyramid = new Pyramid($"Pyramid_{objectCounter++}", 1f, 1.5f);
             pyramid.Material = new Material(Color3.Magenta);
-            pyramid.Transform.Position = GetRandomPosition();
+            pyramid.Transform.Position = new Vector3(0, 0, 0);
             scene.AddObject(pyramid);
+            scene.SelectObject(pyramid);
             RefreshObjectList();
+            UpdateTransformUI();
         }
 
         private Vector3 GetRandomPosition()

@@ -18,6 +18,38 @@ namespace Proyecto_U2
             Z = z;
         }
 
+        /// <summary>
+        /// Get a zero vector (0, 0, 0).
+        /// </summary>
+        public static Vector3 Zero()
+        {
+            return new Vector3(0, 0, 0);
+        }
+
+        /// <summary>
+        /// Get a unit vector pointing right (1, 0, 0).
+        /// </summary>
+        public static Vector3 Right()
+        {
+            return new Vector3(1, 0, 0);
+        }
+
+        /// <summary>
+        /// Get a unit vector pointing up (0, 1, 0).
+        /// </summary>
+        public static Vector3 Up()
+        {
+            return new Vector3(0, 1, 0);
+        }
+
+        /// <summary>
+        /// Get a unit vector pointing forward (0, 0, 1).
+        /// </summary>
+        public static Vector3 Forward()
+        {
+            return new Vector3(0, 0, 1);
+        }
+
         public Vector3 Add(Vector3 other)
         {
             return new Vector3(X + other.X, Y + other.Y, Z + other.Z);
@@ -57,6 +89,14 @@ namespace Proyecto_U2
             float mag = Magnitude();
             if (mag == 0) return new Vector3(0, 0, 0);
             return new Vector3(X / mag, Y / mag, Z / mag);
+        }
+
+        /// <summary>
+        /// Calculate distance between two points.
+        /// </summary>
+        public float Distance(Vector3 other)
+        {
+            return Subtract(other).Magnitude();
         }
 
         public override string ToString()

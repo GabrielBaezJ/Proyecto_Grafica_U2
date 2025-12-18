@@ -1,7 +1,9 @@
 namespace Proyecto_U2
 {
     /// <summary>
-    /// Represents a 3D pyramid (square base).
+    /// Represents a 3D square pyramid centered at the local origin.
+    /// Base vertices are at Y = -height/2, apex is at Y = +height/2.
+    /// The square base is centered at X-Z plane.
     /// </summary>
     public class Pyramid : Object3D
     {
@@ -13,10 +15,15 @@ namespace Proyecto_U2
         {
             this.baseSize = baseSize;
             this.height = height;
-            GenerateVertices();
             Material = new Material(Color3.Magenta);
+            GenerateVertices();
         }
 
+        /// <summary>
+        /// Generate pyramid vertices centered at local origin (0, 0, 0).
+        /// Base corners extend from -baseSize/2 to +baseSize/2 on X-Z plane at Y = -height/2.
+        /// Apex is at (0, +height/2, 0).
+        /// </summary>
         private void GenerateVertices()
         {
             vertices.Clear();
@@ -25,19 +32,19 @@ namespace Proyecto_U2
             float s = baseSize / 2f;
             float h = height / 2f;
 
-            // Base vertices (counter-clockwise when viewed from below)
-            vertices.Add(new Vector3(-s, -h, -s)); // 0
-            vertices.Add(new Vector3(s, -h, -s));  // 1
-            vertices.Add(new Vector3(s, -h, s));   // 2
-            vertices.Add(new Vector3(-s, -h, s));  // 3
+            // Base vertices (centered square at Y = -h)
+            vertices.Add(new Vector3(-s, -h, -s)); // 0: Front-Left
+            vertices.Add(new Vector3(s, -h, -s));  // 1: Front-Right
+            vertices.Add(new Vector3(s, -h, s));   // 2: Back-Right
+            vertices.Add(new Vector3(-s, -h, s));  // 3: Back-Left
 
-            // Apex
-            vertices.Add(new Vector3(0, h, 0));    // 4
+            // Apex (top center)
+            vertices.Add(new Vector3(0, h, 0));    // 4: Apex
 
-            // Base (bottom face)
+            // Base face (square, counter-clockwise from below)
             indices.AddRange(new[] { 0, 2, 1, 0, 3, 2 });
 
-            // Front face
+            // Front face (from Y=-h to apex)
             indices.AddRange(new[] { 0, 1, 4 });
 
             // Right face

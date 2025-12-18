@@ -3,7 +3,9 @@ using System;
 namespace Proyecto_U2
 {
     /// <summary>
-    /// Represents a 3D cylinder.
+    /// Represents a 3D cylinder centered at the local origin.
+    /// Cylinder extends from -height/2 to +height/2 along Y axis.
+    /// The circular cross-section is centered at X-Z plane.
     /// </summary>
     public class Cylinder : Object3D
     {
@@ -17,10 +19,14 @@ namespace Proyecto_U2
             this.radius = radius;
             this.height = height;
             this.sides = sides;
-            GenerateVertices();
             Material = new Material(Color3.Blue);
+            GenerateVertices();
         }
 
+        /// <summary>
+        /// Generate cylinder vertices centered at local origin (0, 0, 0).
+        /// Cylinder extends from -height/2 to +height/2 along Y axis.
+        /// </summary>
         private void GenerateVertices()
         {
             vertices.Clear();
@@ -29,23 +35,24 @@ namespace Proyecto_U2
             float halfHeight = height / 2f;
 
             // Generate vertices for the top and bottom circles
+            // All coordinates are centered at origin
             for (int i = 0; i < sides; i++)
             {
                 float angle = (float)(2 * Math.PI * i / sides);
                 float x = (float)(radius * Math.Cos(angle));
                 float z = (float)(radius * Math.Sin(angle));
 
-                // Bottom circle
+                // Bottom circle (Y = -halfHeight)
                 vertices.Add(new Vector3(x, -halfHeight, z));
-                // Top circle
+                // Top circle (Y = +halfHeight)
                 vertices.Add(new Vector3(x, halfHeight, z));
             }
 
             // Add center points for caps
             int bottomCenterIdx = vertices.Count;
-            vertices.Add(new Vector3(0, -halfHeight, 0));
+            vertices.Add(new Vector3(0, -halfHeight, 0));  // Center of bottom cap
             int topCenterIdx = vertices.Count;
-            vertices.Add(new Vector3(0, halfHeight, 0));
+            vertices.Add(new Vector3(0, halfHeight, 0));   // Center of top cap
 
             // Generate side faces
             for (int i = 0; i < sides; i++)
@@ -66,7 +73,7 @@ namespace Proyecto_U2
                 indices.Add(v3);
             }
 
-            // Generate bottom cap
+            // Generate bottom cap (fan triangles from center)
             for (int i = 0; i < sides; i++)
             {
                 int next = (i + 1) % sides;
@@ -75,7 +82,7 @@ namespace Proyecto_U2
                 indices.Add(i * 2);
             }
 
-            // Generate top cap
+            // Generate top cap (fan triangles from center)
             for (int i = 0; i < sides; i++)
             {
                 int next = (i + 1) % sides;

@@ -3,7 +3,8 @@ using System;
 namespace Proyecto_U2
 {
     /// <summary>
-    /// Represents a 3D sphere.
+    /// Represents a 3D sphere centered at the local origin.
+    /// Generated using spherical coordinates (stacks and slices parametrization).
     /// </summary>
     public class Sphere : Object3D
     {
@@ -17,21 +18,29 @@ namespace Proyecto_U2
             this.radius = radius;
             this.stacks = stacks;
             this.slices = slices;
-            GenerateVertices();
             Material = new Material(Color3.Green);
+            GenerateVertices();
         }
 
+        /// <summary>
+        /// Generate sphere vertices centered at local origin (0, 0, 0).
+        /// Uses parametric spherical coordinates with stacks (latitude) and slices (longitude).
+        /// </summary>
         private void GenerateVertices()
         {
             vertices.Clear();
             indices.Clear();
 
-            // Generate vertices
+            // Generate vertices using spherical coordinates
+            // Each vertex is centered around the origin within radius
             for (int i = 0; i <= stacks; i++)
             {
                 float stackAngle = (float)(Math.PI / stacks * i);
                 float xy = (float)(radius * Math.Sin(stackAngle));
                 float z = (float)(radius * Math.Cos(stackAngle));
+                
+                // Adjust z to be centered: range from -radius to +radius
+                z = (float)(radius * Math.Cos(stackAngle) - radius * Math.Cos(0));
 
                 for (int j = 0; j <= slices; j++)
                 {
@@ -43,7 +52,7 @@ namespace Proyecto_U2
                 }
             }
 
-            // Generate indices
+            // Generate triangle indices
             for (int i = 0; i < stacks; i++)
             {
                 int k1 = i * (slices + 1);
@@ -51,6 +60,7 @@ namespace Proyecto_U2
 
                 for (int j = 0; j < slices; j++)
                 {
+                    // First triangle of quad
                     if (i != 0)
                     {
                         indices.Add(k1);
@@ -58,6 +68,7 @@ namespace Proyecto_U2
                         indices.Add(k1 + 1);
                     }
 
+                    // Second triangle of quad
                     if (i != (stacks - 1))
                     {
                         indices.Add(k1 + 1);
