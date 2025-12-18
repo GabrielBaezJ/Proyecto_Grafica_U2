@@ -21,6 +21,46 @@ namespace Proyecto_U2
             Shininess = shininess;
         }
 
+        /// <summary>
+        /// Update the diffuse color and automatically adjust ambient color.
+        /// </summary>
+        public void SetDiffuseColor(Color3 newColor)
+        {
+            if (newColor == null)
+                return;
+
+            DiffuseColor = newColor;
+            AmbientColor = new Color3(
+                newColor.R * 0.3f,
+                newColor.G * 0.3f,
+                newColor.B * 0.3f
+            );
+        }
+
+        /// <summary>
+        /// Update all color components.
+        /// </summary>
+        public void SetColors(Color3 ambient, Color3 diffuse, Color3 specular)
+        {
+            if (ambient != null)
+                AmbientColor = ambient;
+            if (diffuse != null)
+                DiffuseColor = diffuse;
+            if (specular != null)
+                SpecularColor = specular;
+        }
+
+        /// <summary>
+        /// Clone the material.
+        /// </summary>
+        public Material Clone()
+        {
+            var cloned = new Material(DiffuseColor, Shininess);
+            cloned.AmbientColor = AmbientColor;
+            cloned.SpecularColor = SpecularColor;
+            return cloned;
+        }
+
         public static Material RedPlastic()
         {
             return new Material(Color3.Red, 32f);

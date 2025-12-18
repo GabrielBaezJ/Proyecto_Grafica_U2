@@ -20,7 +20,7 @@ namespace Proyecto_U2
             InitializeComponent();
             objectCounter = 0;
             isUpdatingUI = false;
-            
+
             // Habilitar captura de teclas
             this.KeyPreview = true;
             this.KeyDown += Form1_KeyDown;
@@ -96,7 +96,7 @@ namespace Proyecto_U2
             try
             {
                 // Actualizar trackbars con los valores actuales de la cámara
-                int distance = (int)Math.Max(trkOrbitalDistance.Minimum, 
+                int distance = (int)Math.Max(trkOrbitalDistance.Minimum,
                     Math.Min(trkOrbitalDistance.Maximum, scene.Camera.OrbitalDistance));
                 trkOrbitalDistance.Value = distance;
                 lblOrbitalDistanceValue.Text = scene.Camera.OrbitalDistance.ToString("F1");
@@ -208,31 +208,84 @@ namespace Proyecto_U2
         {
             if (isUpdatingUI || scene == null) return;
 
-            // Si no hay selección en la lista, deseleccionar el objeto en la escena
             if (lstObjects.SelectedIndex < 0)
             {
                 scene.DeselectObject();
                 return;
             }
 
-            string selectedName = lstObjects.SelectedItem?.ToString();
-            if (!string.IsNullOrEmpty(selectedName))
+            if (Control.ModifierKeys == Keys.Control)
             {
-                // Buscar el objeto por nombre en la lista de objetos
-                Object3D objToSelect = null;
-                foreach (var obj in scene.Objects)
+                string selectedName = lstObjects.SelectedItem?.ToString();
+                if (!string.IsNullOrEmpty(selectedName))
                 {
-                    if (obj.Name == selectedName)
+                    Object3D objToToggle = null;
+                    foreach (var obj in scene.Objects)
                     {
-                        objToSelect = obj;
-                        break;
+                        if (obj.Name == selectedName)
+                        {
+                            objToToggle = obj;
+                            break;
+                        }
+                    }
+
+                    if (objToToggle != null)
+                    {
+                        List<Object3D> selected = scene.GetAllSelectedObjects();
+                        if (selected.Contains(objToToggle))
+                        {
+                            scene.RemoveFromSelection(objToToggle);
+                        }
+                        else
+                        {
+                            scene.AddToSelection(objToToggle);
+                        }
+                        UpdateTransformUI();
                     }
                 }
-                
-                if (objToSelect != null)
+            }
+            else if (Control.ModifierKeys == Keys.Shift)
+            {
+                string selectedName = lstObjects.SelectedItem?.ToString();
+                if (!string.IsNullOrEmpty(selectedName))
                 {
-                    scene.SelectObject(objToSelect);
-                    UpdateTransformUI();
+                    Object3D objToAdd = null;
+                    foreach (var obj in scene.Objects)
+                    {
+                        if (obj.Name == selectedName)
+                        {
+                            objToAdd = obj;
+                            break;
+                        }
+                    }
+
+                    if (objToAdd != null)
+                    {
+                        scene.AddToSelection(objToAdd);
+                        UpdateTransformUI();
+                    }
+                }
+            }
+            else
+            {
+                string selectedName = lstObjects.SelectedItem?.ToString();
+                if (!string.IsNullOrEmpty(selectedName))
+                {
+                    Object3D objToSelect = null;
+                    foreach (var obj in scene.Objects)
+                    {
+                        if (obj.Name == selectedName)
+                        {
+                            objToSelect = obj;
+                            break;
+                        }
+                    }
+
+                    if (objToSelect != null)
+                    {
+                        scene.SelectObject(objToSelect);
+                        UpdateTransformUI();
+                    }
                 }
             }
         }
@@ -442,10 +495,10 @@ namespace Proyecto_U2
 
             // Resetear posición a origen
             selected.Transform.Position = new Vector3(0, 0, 0);
-            
+
             // Resetear rotación
             selected.Transform.SetRotation(0, 0, 0);
-            
+
             // Resetear escala a 1
             selected.Transform.SetScale(1, 1, 1);
 
@@ -514,27 +567,35 @@ namespace Proyecto_U2
 
         private void BtnColorPicker_Click(object sender, EventArgs e)
         {
-            Object3D selectedObject = scene.GetSelectedObject();
-            if (selectedObject != null)
+            List<Object3D> selectedObjects = scene.GetAllSelectedObjects();
+
+            if (selectedObjects.Count == 0)
             {
-                using (ColorDialog colorDialog = new ColorDialog())
-                {
-                    if (colorDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        System.Drawing.Color color = colorDialog.Color;
-                        selectedObject.Material.DiffuseColor = Color3.FromSystemColor(color);
-                        selectedObject.Material.AmbientColor = new Color3(
-                            selectedObject.Material.DiffuseColor.R * 0.3f,
-                            selectedObject.Material.DiffuseColor.G * 0.3f,
-                            selectedObject.Material.DiffuseColor.B * 0.3f
-                        );
-                    }
-                }
+                MessageBox.Show(
+                    "Seleccione uno o más objetos primero.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
             }
-            else
+
+            using (ColorDialog colorDialog = new ColorDialog())
             {
-                MessageBox.Show("Seleccione un objeto primero.", "Aviso", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    System.Drawing.Color systemColor = colorDialog.Color;
+                    Color3 newColor = Color3.FromSystemColor(systemColor);
+
+                    foreach (Object3D obj in selectedObjects)
+                    {
+                        if (obj != null && obj.Material != null)
+                        {
+                            obj.Material.SetDiffuseColor(newColor);
+                        }
+                    }
+
+                    UpdateTransformUI();
+                }
             }
         }
 
@@ -548,6 +609,124 @@ namespace Proyecto_U2
                 selectedObject.Material.Shininess = trkShininess.Value;
             }
             lblShininessValue.Text = $"Brillo: {trkShininess.Value}";
+        }
+
+        /// <summary>
+        /// Apply a predefined material color to all selected objects.
+        /// </summary>
+        private void ApplyPredefinedColor(Color3 color, string colorName)
+        {
+            List<Object3D> selectedObjects = scene.GetAllSelectedObjects();
+
+            if (selectedObjects.Count == 0)
+            {
+                MessageBox.Show(
+                    $"Seleccione uno o más objetos para aplicar color {colorName}.",
+                    "Aviso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+
+            foreach (Object3D obj in selectedObjects)
+            {
+                if (obj != null && obj.Material != null)
+                {
+                    obj.Material.SetDiffuseColor(color);
+                }
+            }
+
+            UpdateTransformUI();
+        }
+
+        /// <summary>
+        /// Get the color of the primary selected object.
+        /// </summary>
+        private Color3 GetSelectedObjectColor()
+        {
+            Object3D selected = scene.GetSelectedObject();
+            if (selected != null && selected.Material != null)
+            {
+                return selected.Material.DiffuseColor;
+            }
+            return Color3.White;
+        }
+
+        /// <summary>
+        /// Update material preview in UI.
+        /// </summary>
+        private void UpdateMaterialPreview()
+        {
+            Object3D selected = scene.GetSelectedObject();
+            if (selected != null && selected.Material != null)
+            {
+                trkShininess.Value = (int)selected.Material.Shininess;
+                lblShininessValue.Text = $"Brillo: {trkShininess.Value}";
+            }
+        }
+
+        /// <summary>
+        /// Apply red color to selected objects.
+        /// </summary>
+        public void ApplyRedColor()
+        {
+            ApplyPredefinedColor(Color3.Red, "rojo");
+        }
+
+        /// <summary>
+        /// Apply green color to selected objects.
+        /// </summary>
+        public void ApplyGreenColor()
+        {
+            ApplyPredefinedColor(Color3.Green, "verde");
+        }
+
+        /// <summary>
+        /// Apply blue color to selected objects.
+        /// </summary>
+        public void ApplyBlueColor()
+        {
+            ApplyPredefinedColor(Color3.Blue, "azul");
+        }
+
+        /// <summary>
+        /// Apply yellow color to selected objects.
+        /// </summary>
+        public void ApplyYellowColor()
+        {
+            ApplyPredefinedColor(Color3.Yellow, "amarillo");
+        }
+
+        /// <summary>
+        /// Apply white color to selected objects.
+        /// </summary>
+        public void ApplyWhiteColor()
+        {
+            ApplyPredefinedColor(Color3.White, "blanco");
+        }
+
+        /// <summary>
+        /// Apply black color to selected objects.
+        /// </summary>
+        public void ApplyBlackColor()
+        {
+            ApplyPredefinedColor(Color3.Black, "negro");
+        }
+
+        /// <summary>
+        /// Apply magenta color to selected objects.
+        /// </summary>
+        public void ApplyMagentaColor()
+        {
+            ApplyPredefinedColor(Color3.Magenta, "magenta");
+        }
+
+        /// <summary>
+        /// Apply cyan color to selected objects.
+        /// </summary>
+        public void ApplyCyanColor()
+        {
+            ApplyPredefinedColor(Color3.Cyan, "cyan");
         }
 
         #endregion
